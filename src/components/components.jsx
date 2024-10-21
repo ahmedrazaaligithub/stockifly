@@ -1,5 +1,5 @@
 import LoginForm from "./loginForm/loginForm";
-import ThemeInput from "./ThemeInput/themeInput";
+import ThemeInput from "./themeInput/themeInput";
 import ThemeButton from "./themeButton/themeButton";
 import Navbar from "./navbar/navbar";
 import Layout from "./layout/layout";
