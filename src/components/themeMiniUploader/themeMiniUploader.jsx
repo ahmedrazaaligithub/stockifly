@@ -1,9 +1,9 @@
 import React from "react";
 import { Upload, Spin } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 const { Dragger } = Upload;
 
-const ThemeUploader = ({
+const ThemeMiniUploader = ({
   type,
   label,
   labelPrimary,
@@ -17,19 +17,17 @@ const ThemeUploader = ({
 
   return (
 
-    <div>
+    <div className="mt-8">
       <p
-        className={`${labelPrimary && "text-primary"} ${
-          textMd ? "font-medium" : "font-semibold"
-        } mb-1`}
+        className={`${labelPrimary && "text-primary"} mb-1`}
       >
         {label}
       </p>
-      <label htmlFor="uploader01">
+      <label htmlFor="uploader">
         {image ? (
           <>
             {uploading ? (
-              <div className="flex items-center justify-center w-64 h-24 rounded-md border-2 border-primary">
+              <div className="flex items-center justify-center w-64 h-24 rounded-md border-2 border-black">
                 <Spin />
               </div>
             ) : (
@@ -43,7 +41,7 @@ const ThemeUploader = ({
                 <input
                   type="file"
                   onChange={(e) => handleImage(e)}
-                  id={"uploader01"}
+                  id={"uploader"}
                   className="!hidden"
                   accept=".png, .jpg, .jpeg, .pdf"
                 />
@@ -57,29 +55,22 @@ const ThemeUploader = ({
                 <Spin />
               </div>
             ) : (
-              <div
-                className={`!border !border-dashed !rounded h-24 md:!w-24 !w-full !bg-[#fafafa] ${
-                  errorMessage ? "border-red-600" : "border-[#cccccc]"
-                } flex justify-center items-center`}
-              >
-                {/* <div className="w-24 !bg-[#E4E4E4] rounded h-8 flex items-center justify-center">
-                  <div className="flex items-center text-black text-xs">
-                    
-                    <p className="ml-1">Browse</p>
+              <>
+                <div className="w-24  shadow-md rounded h-8 flex items-center justify-center">
+                  <div className="flex items-center text-black text-xs cursor-pointer">
+                    <UploadOutlined className="text-base" />
+                    <p className="ml-1">upload</p>
                   </div>
-                </div> */}
-                <div className="flex flex-col gap-2 justify-center items-center">
-                <PlusOutlined className="" />
-                <p>Upload</p>
                 </div>
                 <input
                   type="file"
                   onChange={(e) => handleImage(e)}
-                  id={"uploader01"}
+                  id={"uploader"}
                   className="!hidden"
                   accept=".png, .jpg, .jpeg, .pdf"
                 />
-              </div>
+              </>
+              
             )}
           </>
         )}
@@ -90,4 +81,4 @@ const ThemeUploader = ({
   );
 };
 
-export default ThemeUploader;
+export default ThemeMiniUploader;

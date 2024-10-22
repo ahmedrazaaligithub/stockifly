@@ -269,7 +269,7 @@ const Customer = () => {
 
   }
   return (
-    <Layout selected={3}>
+    <Layout selected={4}>
       <div className="bg-white py-2 px-4">
         <div className="flex gap-4 items-center justify-between w-full">
           <div className="flex gap-2">

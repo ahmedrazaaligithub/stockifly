@@ -129,10 +129,7 @@ function Brand() {
   };
 
   // Example options for search dropdown and filter dropdown
-  const dropdownOption = [
-    { value: "enabled", label: "Enabled" },
-    { value: "disabled", label: "Disabled" },
-  ];
+  
 
   const searchDropdown = [
     { value: "name", label: "Name" },
@@ -199,9 +196,11 @@ function Brand() {
   ];
   const handleImportModal = (e) => {
     console.log(e);
+    setIsModalOpen(false)
   };
   const handleBrandModal = (e) => {
     console.log(e);
+    setIsBrandModalOpen(false)
   };
   const onHandleImage = (e) => {
     const selectedImage = e.target.files[0];
@@ -223,22 +222,28 @@ function Brand() {
     }
   };
   const onHandleBrandImage = (e) => {
-    const selectedImage = e.target.files[0];
-    if (selectedImage) {
-      setUploading(true);
-      if (allowedFormats.includes(selectedImage.type)) {
-        setBrandImage(URL.createObjectURL(selectedImage));
-        setBrandImageFile(selectedImage);
-        setBrandErrorMessage("");
-        setBrandUploading(false);
-      } else {
-        setBrandImage("");
-        setBrandImageFile("");
-        setBrandErrorMessage(
-          "Invalid file format. Please select a JPEG, PNG or JPG image."
-        );
-        setBrandUploading(false);
+    try {
+      console.log(e);
+      const selectedImage = e.target.files[0];
+      if (selectedImage) {
+        setBrandUploading(true);
+        if (allowedFormats.includes(selectedImage.type)) {
+          setBrandImage(URL.createObjectURL(selectedImage));
+          setBrandImageFile(selectedImage);
+          setBrandErrorMessage("");
+          setBrandUploading(false);
+        } else {
+          setBrandImage("");
+          setBrandImageFile("");
+          setBrandErrorMessage(
+            "Invalid file format. Please select a JPEG, PNG or JPG image."
+          );
+          setBrandUploading(false);
+        }
       }
+    } catch (error) {
+      console.log(e);
+      
     }
   };
   return (
@@ -246,10 +251,10 @@ function Brand() {
       <div className="bg-white py-2 px-4">
         <div className="flex gap-4 items-center justify-between w-full">
           <div className="flex gap-2">
-            <ThemeButton>
+            <ThemeButton onClick={showBrandModal}>
               <IoIosAdd
                 className="inline-block text-lg"
-                onClick={showBrandModal}
+                
               />{" "}
               Add New Brand
             </ThemeButton>
@@ -292,6 +297,8 @@ function Brand() {
         isModalOpen={isModalOpen}
         oncancel={() => setIsModalOpen(false)}
         onFinish={handleImportModal}
+        title={"Import Brand"}
+        name={"importBrand"}
       />
       <AddBrand
         image={brandImage}

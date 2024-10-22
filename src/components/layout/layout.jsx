@@ -39,9 +39,10 @@ function Layout({ selected, children }) {
       getItem("Customers", "3"),
       getItem("Suppliers", "4"),
     ]),
-    getItem('ProductManager','11',<AiOutlineProduct className="inline-block"/>,[
+    getItem('Product Manager','11',<AiOutlineProduct className="inline-block"/>,[
       getItem('Brand','6'),
       getItem('Categories','7'),
+      getItem('Variations','11'),
       getItem('PrintBarcode','8'),
       getItem('Products','9'),
       getItem('Productsvariations','10'),

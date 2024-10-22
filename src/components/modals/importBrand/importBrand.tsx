@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Modal } from "antd";
-import { ThemeButton, ThemeUploader } from "../../components";
+import { ThemeButton, ThemeMiniUploader } from "../../components";
 function ImportBrand({
   isModalOpen,
   oncancel,
@@ -9,17 +9,19 @@ function ImportBrand({
   image,
   uploading,
   errorMessage,
+  title,
+  name
 }) {
   return (
     <Modal
-      title="Import Brand"
+      title={title}
       open={isModalOpen}
       onCancel={oncancel}
       footer={false}
     >
       <p className="text-blue mt-6">Click here to download csv file</p>
-      <Form name="importBrand" onFinish={onFinish}>
-        <ThemeUploader
+      <Form name={name} onFinish={onFinish}>
+        <ThemeMiniUploader
           label={"File"}
           image={image}
           handleImage={(e) => onHandleImage(e)}

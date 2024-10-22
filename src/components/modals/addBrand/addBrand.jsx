@@ -1,6 +1,7 @@
 import React from "react";
 import { Col, Form, Modal, Row } from "antd";
-import { ThemeButton, ThemeUploader,ThemeInput } from "../../components";
+import { ThemeButton,ThemeInput, ThemeUploader } from "../../components";
+import { FaRegSave } from "react-icons/fa";
 
 function AddBrand({
     isModalOpen,
@@ -61,13 +62,13 @@ function AddBrand({
         <Form.Item className="flex justify-end gap-2 mt-8 mb-0 w-full"> 
           <ThemeButton 
           htmlType="submit"
-          className={"!rounded-md "}
+          className={"!rounded"}
           disabled={uploading}
           >
           {uploading ? (
                 <Spin className="" />
               ) : (
-                <p className="!text-white  !font-medium ">Import</p>
+                <p className="!text-white  !font-medium flex items-center gap-2"><FaRegSave className="inline-block"/> create</p>
               )}
           </ThemeButton>
           <ThemeButton

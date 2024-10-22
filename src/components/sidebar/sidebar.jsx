@@ -35,7 +35,7 @@ const Sidebar = ({
                 key={menuItem.key}
                 icon={menuItem.icon}
                 title={menuItem.label}
-                className="text-gray bg-dark"
+                className="!text-gray bg-dark"
               >
                 {menuItem.children.map((subItem) => (
                   <Menu.Item
@@ -59,7 +59,7 @@ const Sidebar = ({
               }`}
             >
               <div className="text-base !text-gray">
-                <span className="text-[20px]">{menuItem.icon}</span>
+                <span className="text-[20px] ">{menuItem.icon}</span>
                 {collapsed ? "" : menuItem.label}
               </div>
             </Menu.Item>

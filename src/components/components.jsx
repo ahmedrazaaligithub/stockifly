@@ -10,7 +10,9 @@ import HomeFilter from "./homeFilter/homeFilter";
 import ThemeDropdown from "./themeDropdown/themeDropdown";
 import SearchDropdown from "./searchDropdown/searchDropdown";
 import ThemeTable from "./themeTable/themeTable";
+import ThemeMiniUploader from "./themeMiniUploader/themeMiniUploader";
 import ThemeUploader from "./themeUploader/themeUploader";
+
 import DoughnutChart from "./charts/doughntChart/doughnutChart";
 import BarCharts from "./charts/barChart/BarChart";
 import LineChart from "./charts/linechart/lineChart";
@@ -19,6 +21,8 @@ import ImportCustomers from "./modals/importCustomer/importCustomers";
 import ImportSuppliers from "./modals/importSupplier/importSupplier";
 import ImportBrand from "./modals/importBrand/importBrand";
 import AddBrand from "./modals/addBrand/addBrand";
+import AddCategory from "./modals/addCategory/addCategory";
+import VariationModal from "./modals/variationsModal/variationModal";
 export {
   LoginForm,
   ThemeInput,
@@ -35,12 +39,14 @@ export {
   BarCharts,
   LineChart,
   HomeFilter,
+  ThemeMiniUploader,
   ThemeUploader,
-
 
   ImportCustomers,
   ImportSuppliers,
   ImportBrand,
   AddBrand,
+  AddCategory,
+  VariationModal
   
 };

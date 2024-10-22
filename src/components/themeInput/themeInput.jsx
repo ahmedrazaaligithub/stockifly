@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { MdSearch } from 'react-icons/md';
 
 function ThemeInput({ label, placeholder, type, onChange, className }) {
   return (
@@ -20,6 +21,7 @@ function ThemeInput({ label, placeholder, type, onChange, className }) {
           type={type || 'text'}
           onChange={onChange}
           className="text-sm py-1"
+          suffix={<MdSearch/>}
         />
       )}
     </div>
