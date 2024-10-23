@@ -13,6 +13,7 @@ const ThemeUploader = ({
   uploading,
   placeholder,
   errorMessage,
+  id
 }) => {
 
   return (
@@ -25,7 +26,7 @@ const ThemeUploader = ({
       >
         {label}
       </p>
-      <label htmlFor="uploader01">
+      <label htmlFor= {id ? id :"uploader01"}>
         {image ? (
           <>
             {uploading ? (
@@ -43,7 +44,7 @@ const ThemeUploader = ({
                 <input
                   type="file"
                   onChange={(e) => handleImage(e)}
-                  id={"uploader01"}
+                  id={id ? id : "uploader01"}
                   className="!hidden"
                   accept=".png, .jpg, .jpeg, .pdf"
                 />
@@ -75,7 +76,7 @@ const ThemeUploader = ({
                 <input
                   type="file"
                   onChange={(e) => handleImage(e)}
-                  id={"uploader01"}
+                  id={id ? id:"uploader01"}
                   className="!hidden"
                   accept=".png, .jpg, .jpeg, .pdf"
                 />

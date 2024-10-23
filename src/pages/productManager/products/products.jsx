@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Layout from "../../../components/components";
 import {
   AddBrand,
@@ -19,6 +19,7 @@ import {
   EyeOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import { TbCategoryPlus } from "react-icons/tb";
 
 const mockData = [
   {
@@ -30,6 +31,7 @@ const mockData = [
     salesPrice: 299.99,
     purchasePrice: 199.99,
     currentStock: 50,
+    type: "single", // Single product
   },
   {
     key: "2",
@@ -40,6 +42,7 @@ const mockData = [
     salesPrice: 899.99,
     purchasePrice: 749.99,
     currentStock: 30,
+    type: "variant", // Variant product (e.g., different specs/versions)
   },
   {
     key: "3",
@@ -50,6 +53,7 @@ const mockData = [
     salesPrice: 59.99,
     purchasePrice: 39.99,
     currentStock: 100,
+    type: "single", // Single product
   },
   {
     key: "4",
@@ -60,6 +64,7 @@ const mockData = [
     salesPrice: 499.99,
     purchasePrice: 399.99,
     currentStock: 25,
+    type: "variant", // Variant product (e.g., different sizes, storage options)
   },
   {
     key: "5",
@@ -70,6 +75,7 @@ const mockData = [
     salesPrice: 149.99,
     purchasePrice: 99.99,
     currentStock: 75,
+    type: "single", // Single product
   },
   {
     key: "6",
@@ -80,6 +86,7 @@ const mockData = [
     salesPrice: 29.99,
     purchasePrice: 19.99,
     currentStock: 150,
+    type: "single", // Single product
   },
   {
     key: "7",
@@ -88,8 +95,9 @@ const mockData = [
     category: "Gaming",
     brand: "BrandD",
     salesPrice: 499.99,
-    purchasePrice: 450.00,
+    purchasePrice: 450.0,
     currentStock: 20,
+    type: "variant", // Variant product (e.g., different editions or bundles)
   },
   {
     key: "8",
@@ -100,6 +108,7 @@ const mockData = [
     salesPrice: 79.99,
     purchasePrice: 49.99,
     currentStock: 60,
+    type: "single", // Single product
   },
   {
     key: "9",
@@ -110,6 +119,7 @@ const mockData = [
     salesPrice: 799.99,
     purchasePrice: 699.99,
     currentStock: 15,
+    type: "variant", // Variant product (e.g., different screen sizes or features)
   },
   {
     key: "10",
@@ -120,15 +130,15 @@ const mockData = [
     salesPrice: 599.99,
     purchasePrice: 499.99,
     currentStock: 25,
+    type: "single", // Single product
   },
 ];
-
 
 function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBrandModalOpen, setIsBrandModalOpen] = useState(false);
-  const [brandValue,setBrandValue] = useState('Sony');
-  const [categoryValue,setCategoryValue] = useState('Headphone')
+  const [brandValue, setBrandValue] = useState("Sony");
+  const [categoryValue, setCategoryValue] = useState("Headphone");
   const [image, setImage] = useState("");
   const [imageFile, setImageFile] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -140,72 +150,59 @@ function Products() {
   const [brandUploading, setBrandUploading] = useState(false);
   const [brandSubmitting, setBrandSubmitting] = useState(false);
   const allowedFormats = ["image/jpeg", "image/png", "image/jpg"];
+  const [TabelType, setTabelType] = useState("single");
+  const [tabelData, setTabelData] = useState(mockData);
+  useEffect(() => {
+    const updateTabel = mockData.filter((data) => data.type === "single");
+    setTabelData(updateTabel);
+  }, []);
+  useEffect(() => {
+    const updateTabel = mockData.filter((data) => data.type === TabelType);
+    setTabelData(updateTabel);
+  }, [TabelType]);
+
   const columns = [
     {
       title: "Product",
       dataIndex: "product",
       key: "product",
       sorter: true,
-      render: (text) => (
-        <div className="text-blue">
-          {text}
-        </div>
-      ),
+      render: (text) => <div className="text-blue">{text}</div>,
     },
     {
       title: "Product Type",
       dataIndex: "productType",
       key: "productType",
       sorter: true,
-      render: (text) => (
-        <div className="">
-          {text}
-        </div>
-      ),
+      render: (text) => <div className="">{text}</div>,
     },
     {
       title: "Brand",
       dataIndex: "brand",
       key: "brand",
       sorter: true,
-      render: (text) => (
-        <div className="">
-          {text}
-        </div>
-      ),
+      render: (text) => <div className="">{text}</div>,
     },
     {
       title: "Sales price",
       dataIndex: "salesPrice",
       key: "salesPrice",
       sorter: true,
-      render: (text) => (
-        <div className="">
-          {text}
-        </div>
-      ),
+      render: (text) => <div className="">{text}</div>,
     },
     {
       title: "Purchase Price",
       dataIndex: "purchasePrice",
       key: "purchasePrice",
       sorter: true,
-      render: (text) => (
-        <div className="">
-          {text}
-        </div>
-      ),
+      render: (text) => <div className="">{text}</div>,
     },
     {
       title: "Current Stock",
       dataIndex: "currentStock",
       key: "currentStock",
       sorter: true,
-      render: (text) => (
-        <div className="">
-          {text}
-        </div>
-      ),
+      render: (text) => <div className="">{text}</div>,
     },
     {
       title: "In Action",
@@ -230,6 +227,7 @@ function Products() {
       ),
     },
   ];
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -246,23 +244,22 @@ function Products() {
     { value: "mobiles", label: "Mobiles" },
     { value: "laptops", label: "Laptops" },
   ];
-const handleBrandDropdown =(e)=>{
-console.log(e);
-setBrandValue(e)
+  const handleBrandDropdown = (e) => {
+    console.log(e);
+    setBrandValue(e);
+  };
+  const handleCatgoryDropdown = (e) => {
+    console.log(e);
+    setCategoryValue(e);
+  };
 
-}
-const handleCatgoryDropdown = (e)=>{
-console.log(e);
-setCategoryValue(e)
-}
-  
   const handleImportModal = (e) => {
     console.log(e);
-    setIsModalOpen(false)
+    setIsModalOpen(false);
   };
   const handleBrandModal = (e) => {
     console.log(e);
-    setIsBrandModalOpen(false)
+    setIsBrandModalOpen(false);
   };
   const onHandleImage = (e) => {
     const selectedImage = e.target.files[0];
@@ -305,37 +302,72 @@ setCategoryValue(e)
       }
     } catch (error) {
       console.log(e);
-      
     }
   };
   return (
     <Layout selected={9}>
-            <div className="bg-white py-2 px-4">
+      <div className="bg-white py-2 px-4">
         <div className="flex gap-4 items-center justify-between w-full">
           <div className="flex gap-2">
             <ThemeButton onClick={showBrandModal}>
-              <IoIosAdd
-                className="inline-block text-lg"
-                
-              />{" "}
-              Add New Product
+              <IoIosAdd className="inline-block text-lg" /> Add New Product
             </ThemeButton>
             <ThemeButton onClick={showModal}>
-              <IoCloudDownloadOutline className="inline-block text-lg" />{" "}
-              Import Product
+              <IoCloudDownloadOutline className="inline-block text-lg" /> Import
+              Product
             </ThemeButton>
           </div>
           <div className="flex items-center gap-2">
-            <ThemeInput placeholder={"Search"}/>
-            <ThemeDropdown options={brandDropdown} onChange={handleBrandDropdown} value={brandValue}/>
-            <ThemeDropdown options={categoryDropdown} onChange={handleCatgoryDropdown} value={categoryValue}/>
-           
+            <ThemeInput placeholder={"Search"} />
+            <ThemeDropdown
+              options={brandDropdown}
+              onChange={handleBrandDropdown}
+              value={brandValue}
+            />
+            <ThemeDropdown
+              options={categoryDropdown}
+              onChange={handleCatgoryDropdown}
+              value={categoryValue}
+            />
           </div>
+        </div>
+      </div>
+      <div className="my-6 w-full border-b border-gray   flex items-start gap-7">
+        <div
+          className={`flex items-center justify-center gap-2  pb-2 cursor-pointer text-sm ${
+            TabelType === "single" && "text-blue border-b-2 border-blue"
+          }`}
+          onClick={() => {
+            setTabelType("single");
+          }}
+        >
+          <TbCategoryPlus /> <p className="capitalize">single type product</p>
+        </div>
+        <div
+          className={`flex items-center justify-center gap-2  pb-2 cursor-pointer text-sm ${
+            TabelType === "variant" && "text-blue border-b-2 border-blue"
+          }`}
+          onClick={() => {
+            setTabelType("variant");
+          }}
+        >
+          <TbCategoryPlus /> <p className="capitalize">variant type product </p>
+        </div>
+
+        <div
+          className={`flex items-center justify-center gap-2  pb-2 cursor-pointer text-sm ${
+            TabelType === "service" && "text-blue border-b-2 border-blue"
+          }`}
+          onClick={() => {
+            setTabelType("service");
+          }}
+        >
+          <TbCategoryPlus /> <p className="capitalize">service type product </p>
         </div>
       </div>
       <ThemeTable
         columns={columns}
-        data={mockData} // Pass the mock data here
+        data={tabelData} // Pass the mock data here
         loader={false}
         pagination={{ total: mockData.length }}
         direction="ltr"
@@ -362,7 +394,7 @@ setCategoryValue(e)
         onFinish={handleBrandModal}
       /> */}
     </Layout>
-  )
+  );
 }
 
-export default Products
+export default Products;

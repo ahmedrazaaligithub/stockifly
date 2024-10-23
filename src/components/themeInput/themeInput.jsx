@@ -3,25 +3,31 @@ import { Input } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { MdSearch } from 'react-icons/md';
 
-function ThemeInput({ label, placeholder, type, onChange, className }) {
+function ThemeInput({style, label, placeholder, type, onChange, className, suffix,addonAfter,addonBefore}) {
   return (
     <div className={`${className}`}>
       <p className='mb-3 text-sm '>{label}</p>
 
       {type === "password" ? (
         <Input.Password
+        addonAfter={addonAfter}
+        addonBefore={addonBefore}
           placeholder={placeholder}
           onChange={onChange}
           className="text-sm py-1"
           iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+          style={style}
         />
       ) : (
         <Input
+        style={style}
+        addonAfter={addonAfter}
+        addonBefore={addonBefore}
           placeholder={placeholder}
           type={type || 'text'}
           onChange={onChange}
           className="text-sm py-1"
-          suffix={<MdSearch/>}
+          suffix={suffix ? suffix :''}
         />
       )}
     </div>

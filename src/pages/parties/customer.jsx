@@ -1,159 +1,174 @@
-  import React, { useState } from "react";
-  import {
-    ImportCustomers,
-    Layout,
-    SearchDropdown,
-    ThemeButton,
-    ThemeDropdown,
-    ThemeTable,
-  } from "../../components/components";
-  import { IoIosAdd } from "react-icons/io";
-  import { IoCloudDownloadOutline } from "react-icons/io5";
-  import { DeleteOutlined, EditOutlined, EyeOutlined, UserOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
+import {
+  CustomerDrawer,
+  ImportCustomers,
+  Layout,
+  SearchDropdown,
+  ThemeButton,
+  ThemeDropdown,
+  ThemeTable,
+} from "../../components/components";
+import { IoIosAdd } from "react-icons/io";
+import { IoCloudDownloadOutline } from "react-icons/io5";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Form } from "antd";
 
-  const mockData = [
-    {
-      key: "1",
-      name: "John Doe",
-      email: "johndoe@example.com",
-      book_name: "The Art of Programming",
-      created_at: "2024-10-01",
-      balance: "$150.00",
-      status: "Enabeld",
-      _id: "book_001",
-    },
-    {
-      key: "2",
-      name: "Jane Smith",
-      email: "janesmith@example.com",
-      book_name: "Learning React",
-      created_at: "2024-09-15",
-      balance: "$200.00",
-      status: "Disabeld",
-      _id: "book_002",
-    },
-    {
-      key: "3",
-      name: "David Williams",
-      email: "davidwilliams@example.com",
-      book_name: "Mastering JavaScript",
-      created_at: "2024-10-10",
-      balance: "$75.00",
-      status: "Enabeld",
-      _id: "book_003",
-    },
-    {
-      key: "4",
-      name: "Emma Johnson",
-      email: "emmajohnson@example.com",
-      book_name: "CSS Design Principles",
-      created_at: "2024-09-25",
-      balance: "$120.00",
-      status: "Disabeld",
-      _id: "book_004",
-    },
-    {
-      key: "5",
-      name: "Michael Brown",
-      email: "michaelbrown@example.com",
-      book_name: "Next.js for Beginners",
-      created_at: "2024-08-30",
-      balance: "$90.00",
-      status: "Enabeld",
-      _id: "book_005",
-    },
-    {
-      key: "6",
-      name: "Olivia Taylor",
-      email: "oliviataylor@example.com",
-      book_name: "Node.js Deep Dive",
-      created_at: "2024-07-14",
-      balance: "$220.00",
-      status: "Disabeld",
-      _id: "book_006",
-    },
-    {
-      key: "7",
-      name: "Sophia Martinez",
-      email: "sophiamartinez@example.com",
-      book_name: "Python for Data Science",
-      created_at: "2024-06-20",
-      balance: "$300.00",
-      status: "Enabeld",
-      _id: "book_007",
-    },
-    {
-      key: "8",
-      name: "Liam Anderson",
-      email: "liamanderson@example.com",
-      book_name: "Effective TypeScript",
-      created_at: "2024-08-05",
-      balance: "$100.00",
-      status: "Disabeld",
-      _id: "book_008",
-    },
-    {
-      key: "9",
-      name: "Noah Davis",
-      email: "noahdavis@example.com",
-      book_name: "Full-Stack Development",
-      created_at: "2024-09-30",
-      balance: "$85.00",
-      status: "Enabeld",
-      _id: "book_009",
-    },
-    {
-      key: "10",
-      name: "Isabella Garcia",
-      email: "isabellagarcia@example.com",
-      book_name: "React Native in Action",
-      created_at: "2024-07-25",
-      balance: "$140.00",
-      status: "Disabeld",
-      _id: "book_010",
-    },
-  ];
+const mockData = [
+  {
+    key: "1",
+    name: "John Doe",
+    email: "johndoe@example.com",
+    book_name: "The Art of Programming",
+    created_at: "2024-10-01",
+    balance: "$150.00",
+    status: "Enabeld",
+    _id: "book_001",
+  },
+  {
+    key: "2",
+    name: "Jane Smith",
+    email: "janesmith@example.com",
+    book_name: "Learning React",
+    created_at: "2024-09-15",
+    balance: "$200.00",
+    status: "Disabeld",
+    _id: "book_002",
+  },
+  {
+    key: "3",
+    name: "David Williams",
+    email: "davidwilliams@example.com",
+    book_name: "Mastering JavaScript",
+    created_at: "2024-10-10",
+    balance: "$75.00",
+    status: "Enabeld",
+    _id: "book_003",
+  },
+  {
+    key: "4",
+    name: "Emma Johnson",
+    email: "emmajohnson@example.com",
+    book_name: "CSS Design Principles",
+    created_at: "2024-09-25",
+    balance: "$120.00",
+    status: "Disabeld",
+    _id: "book_004",
+  },
+  {
+    key: "5",
+    name: "Michael Brown",
+    email: "michaelbrown@example.com",
+    book_name: "Next.js for Beginners",
+    created_at: "2024-08-30",
+    balance: "$90.00",
+    status: "Enabeld",
+    _id: "book_005",
+  },
+  {
+    key: "6",
+    name: "Olivia Taylor",
+    email: "oliviataylor@example.com",
+    book_name: "Node.js Deep Dive",
+    created_at: "2024-07-14",
+    balance: "$220.00",
+    status: "Disabeld",
+    _id: "book_006",
+  },
+  {
+    key: "7",
+    name: "Sophia Martinez",
+    email: "sophiamartinez@example.com",
+    book_name: "Python for Data Science",
+    created_at: "2024-06-20",
+    balance: "$300.00",
+    status: "Enabeld",
+    _id: "book_007",
+  },
+  {
+    key: "8",
+    name: "Liam Anderson",
+    email: "liamanderson@example.com",
+    book_name: "Effective TypeScript",
+    created_at: "2024-08-05",
+    balance: "$100.00",
+    status: "Disabeld",
+    _id: "book_008",
+  },
+  {
+    key: "9",
+    name: "Noah Davis",
+    email: "noahdavis@example.com",
+    book_name: "Full-Stack Development",
+    created_at: "2024-09-30",
+    balance: "$85.00",
+    status: "Enabeld",
+    _id: "book_009",
+  },
+  {
+    key: "10",
+    name: "Isabella Garcia",
+    email: "isabellagarcia@example.com",
+    book_name: "React Native in Action",
+    created_at: "2024-07-25",
+    balance: "$140.00",
+    status: "Disabeld",
+    _id: "book_010",
+  },
+];
 
 const Customer = () => {
+  const [form] = Form.useForm();
   const [dropdownValue, setDropdownValue] = useState("");
   const [searchValue, setSearchValue] = useState(""); // Search input value
   const [searchCategory, setSearchCategory] = useState("price");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [drawerImage, setDrawerImage] = useState("");
+  const [drawerImageFile, setDrawerImageFile] = useState("");
+  const [drawerErrorMessage, setDrawerErrorMessage] = useState("");
+  const [drawerUploading, setdrawerUploading] = useState(false);
+  const [drawerSubmitting, setDrawerSubmitting] = useState(false);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [image, setImage] = useState('')
-  const [imageFile, setImageFile] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-  const [uploading, setUploading] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const allowedFormats = ['image/jpeg', 'image/png', 'image/jpg']
+  const [image, setImage] = useState("");
+  const [imageFile, setImageFile] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [warehouseDrawerData,setwarehouseDrawerData] =useState('')
+  const allowedFormats = ["image/jpeg", "image/png", "image/jpg"];
+
   const showModal = () => {
     setIsModalOpen(true);
+  };
+  const showDrawer = () => {
+    setIsDrawerOpen(true);
   };
   // Handler for dropdown selection in the search (Name, Email, Price)
   const handleSearchCategory = (category) => {
     setSearchCategory(category);
   };
-
   // Handler for search input value
   const handleSearchValue = (value) => {
     setSearchValue(value);
   };
-
   const handleFilterValue = (value) => {
     setDropdownValue(value);
   };
-
   // Example options for search dropdown and filter dropdown
   const dropdownOption = [
     { value: "enabled", label: "Enabled" },
     { value: "disabled", label: "Disabled" },
   ];
-
   const searchDropdown = [
     { value: "name", label: "Name" },
     { value: "email", label: "Email" },
     { value: "price", label: "Price" },
   ];
-
   // Table columns configuration
   const columns = [
     {
@@ -244,36 +259,62 @@ const Customer = () => {
       ),
     },
   ];
-  const handleImportModal=(e)=>{
-    console.log(e);
-    
-  }
-  const onHandleImage = (e)=>{
-    const selectedImage = e.target.files[0]
+  const onHandleImage = (e) => {
+    const selectedImage = e.target.files[0];
     if (selectedImage) {
-      setUploading(true)
+      setUploading(true);
       if (allowedFormats.includes(selectedImage.type)) {
-        setImage(URL.createObjectURL(selectedImage))
-        setImageFile(selectedImage)
-        setErrorMessage('')
-        setUploading(false)
+        setImage(URL.createObjectURL(selectedImage));
+        setImageFile(selectedImage);
+        setErrorMessage("");
+        setUploading(false);
       } else {
-        setImage('')
-        setImageFile('')
+        setImage("");
+        setImageFile("");
         setErrorMessage(
-          'Invalid file format. Please select a JPEG, PNG or JPG image.'
-        )
-        setUploading(false)
+          "Invalid file format. Please select a JPEG, PNG or JPG image."
+        );
+        setUploading(false);
       }
     }
-
+  };
+  const handleImportModal = (e) => {
+    console.log(e);
+  };
+  const onHandleDrawerImage = (e)=>{
+    const selectedImage = e.target.files[0];
+    if (selectedImage) {
+      setUploading(true);
+      if (allowedFormats.includes(selectedImage.type)) {
+        setDrawerImage(URL.createObjectURL(selectedImage));
+        setDrawerImageFile(selectedImage);
+        setDrawerErrorMessage("");
+        setdrawerUploading(false);
+      } else {
+        setDrawerImage("");
+        setDrawerImageFile("");
+        setDrawerErrorMessage(
+          "Invalid file format. Please select a JPEG, PNG or JPG image."
+        );
+        setdrawerUploading(false);
+      }
+    }
   }
+  const handleDrawer = (value)=>{
+    
+    const values ={
+      ...value,
+      image:drawerImage
+    }
+    console.log(values);
+  }
+  
   return (
     <Layout selected={4}>
       <div className="bg-white py-2 px-4">
         <div className="flex gap-4 items-center justify-between w-full">
           <div className="flex gap-2">
-            <ThemeButton>
+            <ThemeButton onClick={showDrawer}>
               <IoIosAdd className="inline-block text-lg" /> Add New Customer
             </ThemeButton>
             <ThemeButton onClick={showModal}>
@@ -307,9 +348,29 @@ const Customer = () => {
         pagination={{ total: mockData.length }}
         direction="ltr"
         scroll={{ x: 1000 }}
-
       />
-      <ImportCustomers image={image} uploading={uploading} errorMessage={errorMessage} onHandleImage={onHandleImage} isModalOpen={isModalOpen} oncancel={()=>setIsModalOpen(false)} onFinish={handleImportModal}/>
+      <ImportCustomers
+        image={image}
+        uploading={uploading}
+        errorMessage={errorMessage}
+        onHandleImage={onHandleImage}
+        isModalOpen={isModalOpen}
+        oncancel={() => setIsModalOpen(false)}
+        onFinish={handleImportModal}
+      />
+     <CustomerDrawer
+    open={isDrawerOpen}
+    onClose={() => setIsDrawerOpen(false)}
+    image={drawerImage}
+    uploading={drawerUploading}
+    drawerUploading={drawerUploading}
+    drawerErrorMessage={drawerErrorMessage}
+    onFinish={handleDrawer}
+    handleImage={onHandleDrawerImage}
+    form={form} 
+    setWarehouseData={setwarehouseDrawerData}
+    warehouseData={warehouseDrawerData}
+  />
     </Layout>
   );
 };

@@ -23,6 +23,9 @@ import ImportBrand from "./modals/importBrand/importBrand";
 import AddBrand from "./modals/addBrand/addBrand";
 import AddCategory from "./modals/addCategory/addCategory";
 import VariationModal from "./modals/variationsModal/variationModal";
+
+import CustomerDrawer from "./Drawer/customerDrawer/customerDrawer";
+import WarehouseDrawer from "./Drawer/warehouseDrawer/warehouseDrawer";
 export {
   LoginForm,
   ThemeInput,
@@ -47,6 +50,9 @@ export {
   ImportBrand,
   AddBrand,
   AddCategory,
-  VariationModal
+  VariationModal,
+
+  CustomerDrawer,
+  WarehouseDrawer
   
 };
