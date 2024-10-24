@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Row, Col, Drawer, Form } from "antd";
 import {
+    AddBrand,
+    AddCategory,
   SearchDropdown,
   ThemeButton,
   ThemeDropdown,
@@ -14,27 +16,75 @@ import { IoAdd } from "react-icons/io5";
 import ThemeTextArea from "../../themeTextArea/themeTextArea";
 import { FaRegSave } from "react-icons/fa";
 
-function CustomerDrawer({
+function ProductDrawer({
   open,
   onClose,
   image,
   uploading,
-  drawerUploading,
-  drawerErrorMessage,
+  errorMessage,
   onFinish,
   handleImage,
   form,
-  setWarehouseData,
-  warehouseData,
 }) {
   const [balanceValue, setBalanceValue] = useState("");
   const [category, setCategory] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [categoryModal,setCategoryModal] = useState(false)
+  const [brandModal,setBrandModal] = useState(false)
   const wareHouse = [{ label: "Electronifly", value: "electronify" }];
-  const status = [
-    { label: "Enabeld", value: "enabeld" },
-    { label: "Disabeld", value: "disabeld" },
+  
+  const productType = [
+    { label: "singleTypeProduct", value: "Single Type Product" },
+    { label: "variantTypeProduct", value: "Variant Type Product" },
+    { label: "serviceTypeProduct", value: "Service Type Product" },
   ];
+  const categories = [
+    {
+      label: <span>Electronics</span>,
+      title: "Electronics",
+      options: [
+        {
+          label: <span>Audio</span>,
+          value: "audio",
+          options: [
+            { label: <span>Headphones</span>, value: "headphones" },
+            { label: <span>Soundbars</span>, value: "soundbars" }
+          ]
+        },
+        { label: <span>Mobiles</span>, value: "mobiles" },
+        { label: <span>Televisions</span>, value: "televisions" },
+        {
+          label: <span>Computers</span>,
+          value: "computers",
+          options: [
+            { label: <span>Laptops</span>, value: "laptops" },
+            { label: <span>Desktops</span>, value: "desktops" }
+          ]
+        }
+      ]
+    }
+  ];
+  const brands = [
+    { value: "headphone", label: "HeadPhone" },
+    { value: "mobiles", label: "Mobiles" },
+    { value: "laptops", label: "Laptops" },
+  ];
+  const barcodeTypes = [
+    { label: "CODE128", value: "code128" },
+    { label: "CODE39", value: "code39" },
+    { label: "EAN8", value: "ean8" },
+    { label: "EAN13", value: "ean13" },
+    { label: "UPC", value: "upc" },
+  ];
+  const taxRates = [
+    { label: "Gst (5%)", value: "gst5" },
+    { label: "Gst (3%)", value: "gst3" },
+    { label: "Gst (12%)", value: "gst12" },
+    { label: "Gst (18%)", value: "gst18" },
+    { label: "vat (10%)", value: "vat10" },
+  ];
+const purchasePriceTax=[{label:"withTax",value:"With Tax"},{label:"withOutTax",value:"Without Tax"}]    
+  
   const balanceType = [
     { label: "Pay", value: "pay" },
     { label: "Recive", value: "recive" },
@@ -47,22 +97,37 @@ function CustomerDrawer({
     setBalanceValue(value);
   };
   return (
-    <Drawer width={600} title="Add New Customer" onClose={onClose} open={open}>
+    <Drawer width={700} title="Add New Product" onClose={onClose} open={open}>
       <Form
-        name="customerDrawer"
+        name="productDrawer"
         onFinish={onFinish}
         form={form}
         className="mt-6"
       >
-        <Row gutter={4}>
+        <Row gutter={12}>
+        <Col span={24}>
+            <Form.Item
+              name={"productType"}
+              rules={[{ required: true, message: "Please select product type" }]}
+            >
+              <ThemeDropdown
+                label={"Product Type"}
+                name="productType"
+                options={productType}
+                // style={{width:330}}
+                className={"w-full"}
+                placeholder={"select product type"}
+              />
+            </Form.Item>
+          </Col>
           <Col span={5}>
             <ThemeUploader
               image={image}
               handleImage={handleImage}
               label={"profile Image"}
-              uploading={drawerUploading}
-              errorMessage={drawerErrorMessage}
-              id={"uploadCustomer"}
+              uploading={uploading}
+              errorMessage={errorMessage}
+              id={"uploadProduct"}
             />
           </Col>
           <Col span={15}>
@@ -105,27 +170,76 @@ function CustomerDrawer({
           </Col>
           <Col span={9}>
             <Form.Item
-              name={"Phone Number"}
-              rules={[{ required: true, message: "Please enter phone number" }]}
+              name={"slug"}
+              rules={[{ required: true, message: "Please enter slug" }]}
             >
               <ThemeInput
-                label={"phone"}
-                placeholder={"Please Enter phone Number"}
+                label={"slug"}
+                placeholder={"Please Enter slug"}
                 className={"py-1"}
               />
             </Form.Item>
           </Col>
           {/*  */}
           <Col span={5}></Col>
-          <Col span={9}>
+          <Col span={7}>
             <Form.Item
-              name={"email"}
-              rules={[{ required: true, message: "Please enter email" }]}
+              name={"category"}
+              rules={[{ required: true, message: "Please enter category" }]}
             >
-              <ThemeInput label={"Email"} placeholder={"Please Enter Email"} />
+              <ThemeDropdown options={categories} label={"Category"} placeholder={"Please Select Category"} />
             </Form.Item>
           </Col>
-          <Col span={9}>
+          <Col>
+            <div
+              className="cursor-pointer border text-lg p-1 mt-6 ms-2 border-gray border-dashed"
+              onClick={() => {
+                setCategoryModal(true);
+              }}
+            >
+              <IoAdd />
+            </div>
+          </Col>
+          <Col span={5}></Col>
+          <Col span={7}>
+            <Form.Item
+              name={"brand"}
+              rules={[{ required: true, message: "Please enter brand" }]}
+            >
+              <ThemeDropdown options={brands} label={"Brand"} placeholder={"Please Select brand"} />
+            </Form.Item>
+          </Col>
+          <Col>
+            <div
+              className="cursor-pointer border text-lg p-1 mt-6 ms-2 border-gray border-dashed"
+              onClick={() => {
+                setBrandModal(true);
+              }}
+            >
+              <IoAdd />
+            </div>
+          </Col> 
+          <Col span={5}></Col>
+          <Col span={7}>
+            <Form.Item
+              name={"unit"}
+              rules={[{ required: true, message: "Please enter unit" }]}
+            >
+              <ThemeDropdown options={un} label={"Unit"} placeholder={"Please Select Unit"} />
+            </Form.Item>
+          </Col>
+          <Col>
+            <div
+              className="cursor-pointer border text-lg p-1 mt-6 ms-2 border-gray border-dashed"
+              onClick={() => {
+                setBrandModal(true);
+              }}
+            >
+              <IoAdd />
+            </div>
+          </Col>   
+
+          {/* <Col span={9}>
             <Form.Item
               name={"status"}
               rules={[{ required: true, message: "Please select status" }]}
@@ -239,7 +353,7 @@ function CustomerDrawer({
                 style={{ height: "70px" }}
               />
             </Form.Item>
-          </Col>
+          </Col> */}
         </Row>
         <Form.Item className="flex justify-end gap-2 mt-8 mb-0 fixed bottom-0 right-4 w-[584px] py-2 border-t border-gray bg-white z-20 ">
           <ThemeButton htmlType={"submit"} className={" gap-2"}>
@@ -257,8 +371,10 @@ function CustomerDrawer({
         </Form.Item>
       </Form>
       <WarehouseDrawer open={drawerOpen} onClose={()=>setDrawerOpen(false)}/>
+        <AddCategory isModalOpen={categoryModal} oncancel={()=>setCategoryModal(false)}/>
+      <AddBrand isModalOpen={brandModal} oncancel={()=>setBrandModal(false)}/>      
     </Drawer>
   );
 }
 
-export default CustomerDrawer;
+export default ProductDrawer;

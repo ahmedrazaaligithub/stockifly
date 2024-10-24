@@ -12,6 +12,11 @@ import SearchDropdown from "./searchDropdown/searchDropdown";
 import ThemeTable from "./themeTable/themeTable";
 import ThemeMiniUploader from "./themeMiniUploader/themeMiniUploader";
 import ThemeUploader from "./themeUploader/themeUploader";
+import ThemeSwitch from "./themeSwitch/themeSwitch";
+import ThemeRadio from "./themeRadio/themeRadio";
+import BasicDetails from "./warehouseModalComponents/basicDetails";
+import Visibility from "./warehouseModalComponents/visibility";
+import PosSetting from "./warehouseModalComponents/posSetting";
 
 import DoughnutChart from "./charts/doughntChart/doughnutChart";
 import BarCharts from "./charts/barChart/BarChart";
@@ -26,6 +31,8 @@ import VariationModal from "./modals/variationsModal/variationModal";
 
 import CustomerDrawer from "./Drawer/customerDrawer/customerDrawer";
 import WarehouseDrawer from "./Drawer/warehouseDrawer/warehouseDrawer";
+import ProductDrawer from "./Drawer/productsDrawer/productsDrawer";
+
 export {
   LoginForm,
   ThemeInput,
@@ -44,15 +51,18 @@ export {
   HomeFilter,
   ThemeMiniUploader,
   ThemeUploader,
-
   ImportCustomers,
   ImportSuppliers,
   ImportBrand,
   AddBrand,
   AddCategory,
   VariationModal,
-
   CustomerDrawer,
-  WarehouseDrawer
-  
+  WarehouseDrawer,
+  BasicDetails,
+  Visibility,
+  PosSetting,
+  ThemeSwitch,
+  ThemeRadio,
+  ProductDrawer,
 };

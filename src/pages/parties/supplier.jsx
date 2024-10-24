@@ -10,6 +10,8 @@ import {
 import { IoIosAdd } from "react-icons/io";
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import { DeleteOutlined, EditOutlined, EyeOutlined, UserOutlined } from "@ant-design/icons";
+import SupplierDrawer from "../../components/Drawer/supplierDrawer/supplierDrawer";
+import { Form } from "antd";
 
 const mockData = [
   {
@@ -114,19 +116,29 @@ const mockData = [
   },
 ];
 const Supplier = () => {
-
+  const [form] = Form.useForm();
   const [dropdownValue, setDropdownValue] = useState("");
   const [searchValue, setSearchValue] = useState(""); // Search input value
   const [searchCategory, setSearchCategory] = useState("price");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [image, setImage] = useState('')
   const [imageFile, setImageFile] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [uploading, setUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [drawerImage, setDrawerImage] = useState("");
+  const [drawerImageFile, setDrawerImageFile] = useState("");
+  const [drawerErrorMessage, setDrawerErrorMessage] = useState("");
+  const [drawerUploading, setdrawerUploading] = useState(false);
+  const [drawerSubmitting, setDrawerSubmitting] = useState(false);
+  const [warehouseDrawerData,setwarehouseDrawerData] =useState('')
   const allowedFormats = ['image/jpeg', 'image/png', 'image/jpg']
   const showModal = () => {
     setIsModalOpen(true);
+  };
+  const showDrawer = () => {
+    setIsDrawerOpen(true);
   };
   // Handler for dropdown selection in the search (Name, Email, Price)
   const handleSearchCategory = (category) => {
@@ -268,12 +280,39 @@ const Supplier = () => {
     }
 
   }
+  const onHandleDrawerImage = (e)=>{
+    const selectedImage = e.target.files[0];
+    if (selectedImage) {
+      setUploading(true);
+      if (allowedFormats.includes(selectedImage.type)) {
+        setDrawerImage(URL.createObjectURL(selectedImage));
+        setDrawerImageFile(selectedImage);
+        setDrawerErrorMessage("");
+        setdrawerUploading(false);
+      } else {
+        setDrawerImage("");
+        setDrawerImageFile("");
+        setDrawerErrorMessage(
+          "Invalid file format. Please select a JPEG, PNG or JPG image."
+        );
+        setdrawerUploading(false);
+      }
+    }
+  }
+  const handleDrawer = (value)=>{
+    
+    const values ={
+      ...value,
+      image:drawerImage
+    }
+    console.log(values);
+  }
   return (
     <Layout selected={3}>
       <div className="bg-white py-2 px-4">
         <div className="flex gap-4 items-center justify-between w-full">
           <div className="flex gap-2">
-            <ThemeButton>
+            <ThemeButton onClick={showDrawer}>
               <IoIosAdd className="inline-block text-lg" /> Add New Suppliers
             </ThemeButton>
             <ThemeButton onClick={showModal}>
@@ -310,6 +349,20 @@ const Supplier = () => {
 
       />
       <ImportSuppliers image={image} uploading={uploading} errorMessage={errorMessage} onHandleImage={onHandleImage} isModalOpen={isModalOpen} oncancel={()=>setIsModalOpen(false)} onFinish={handleImportModal}/>
+      <SupplierDrawer
+      open={isDrawerOpen}
+      onClose={() => setIsDrawerOpen(false)}
+      image={drawerImage}
+      uploading={drawerUploading}
+      drawerUploading={drawerUploading}
+      drawerErrorMessage={drawerErrorMessage}
+      onFinish={handleDrawer}
+      handleImage={onHandleDrawerImage} 
+      form={form} 
+      setWarehouseData={setwarehouseDrawerData}
+      warehouseData={warehouseDrawerData}
+      />
+    
     </Layout>
   )
 }

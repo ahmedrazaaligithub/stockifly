@@ -108,6 +108,7 @@ function Brand() {
   const [brandUploading, setBrandUploading] = useState(false);
   const [brandSubmitting, setBrandSubmitting] = useState(false);
   const allowedFormats = ["image/jpeg", "image/png", "image/jpg"];
+  const dropdownOption =[{label:"Name",value : "name"}]
   const showModal = () => {
     setIsModalOpen(true);
   };

@@ -45,7 +45,7 @@ function Layout({ selected, children }) {
       getItem('Variations','11'),
       getItem('PrintBarcode','8'),
       getItem('Products','9'),
-      getItem('Productsvariations','10'),
+      // getItem('Productsvariations','10'),
     ]),
     getItem("Logout", "0",<IoMdLogOut className="inline-block" />),
   ];

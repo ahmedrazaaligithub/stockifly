@@ -17,7 +17,8 @@ const ThemeTextArea = ({
   inputClassName,
   dir,
   isRtl,
-  rows
+  rows,
+  defaultValue
 }) => {
   return (
     <div className={className}>
@@ -34,6 +35,7 @@ const ThemeTextArea = ({
         minRows: 2,
         maxRows: 6,
       }}
+      defaultValue={defaultValue}
         rows={rows ||4}
         type={type || "text"}
         dir={dir}

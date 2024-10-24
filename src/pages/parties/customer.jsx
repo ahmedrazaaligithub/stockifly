@@ -366,7 +366,7 @@ const Customer = () => {
     drawerUploading={drawerUploading}
     drawerErrorMessage={drawerErrorMessage}
     onFinish={handleDrawer}
-    handleImage={onHandleDrawerImage}
+    handleImage={onHandleDrawerImage} 
     form={form} 
     setWarehouseData={setwarehouseDrawerData}
     warehouseData={warehouseDrawerData}

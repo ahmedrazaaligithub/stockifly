@@ -14,7 +14,7 @@ import { IoAdd } from "react-icons/io5";
 import ThemeTextArea from "../../themeTextArea/themeTextArea";
 import { FaRegSave } from "react-icons/fa";
 
-function CustomerDrawer({
+function SupplierDrawer({
   open,
   onClose,
   image,
@@ -47,9 +47,9 @@ function CustomerDrawer({
     setBalanceValue(value);
   };
   return (
-    <Drawer width={600} title="Add New Customer" onClose={onClose} open={open}>
+    <Drawer width={600} title="Add New Supplier" onClose={onClose} open={open}>
       <Form
-        name="customerDrawer"
+        name="supplierDrawer"
         onFinish={onFinish}
         form={form}
         className="mt-6"
@@ -62,7 +62,7 @@ function CustomerDrawer({
               label={"profile Image"}
               uploading={drawerUploading}
               errorMessage={drawerErrorMessage}
-              id={"uploadCustomer"}
+              id={"uploadSupplier"}
             />
           </Col>
           <Col span={15}>
@@ -261,4 +261,4 @@ function CustomerDrawer({
   );
 }
 
-export default CustomerDrawer;
+export default SupplierDrawer;
