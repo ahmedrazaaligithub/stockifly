@@ -220,7 +220,7 @@ const purchasePriceTax=[{label:"withTax",value:"With Tax"},{label:"withOutTax",v
             </div>
           </Col> 
           <Col span={5}></Col>
-          <Col span={7}>
+          {/* <Col span={7}>
             <Form.Item
               name={"unit"}
               rules={[{ required: true, message: "Please enter unit" }]}
@@ -237,7 +237,7 @@ const purchasePriceTax=[{label:"withTax",value:"With Tax"},{label:"withOutTax",v
             >
               <IoAdd />
             </div>
-          </Col>   
+          </Col>    */}
 
           {/* <Col span={9}>
             <Form.Item

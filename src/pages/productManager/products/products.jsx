@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import Layout from "../../../components/components";
 import {
-  Addproduct,
-  Importproduct,
+  // Addproduct,
+  ImportBrand,
   ImportCustomers,
   Layout,
   ProductDrawer,
@@ -21,6 +21,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { TbCategoryPlus } from "react-icons/tb";
+import { Form } from "antd";
 
 const mockData = [
   {
@@ -136,6 +137,7 @@ const mockData = [
 ];
 
 function Products() {
+  const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isproductModalOpen, setIsproductModalOpen] = useState(false);
   const [productValue, setProductValue] = useState("Sony");
@@ -406,7 +408,7 @@ function Products() {
         direction="ltr"
         scroll={{ x: 1000 }}
       />
-      <Importproduct
+      <ImportBrand
         image={image}
         uploading={uploading}
         errorMessage={errorMessage}
@@ -423,6 +425,8 @@ function Products() {
       errorMessage={drawerErrorMessage}
       handleImage={onHandleDrawerImage}
       open={isproductModalOpen}
+      onClose={()=>{setIsModalOpen(false)}}
+      form={form}
       />
     </Layout>
   );
